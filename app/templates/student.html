@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Manage Students</h2>
+<form method="POST" class="mb-4">
+    <div class="form-group">
+        <input type="text" name="rollno" class="form-control" placeholder="Roll No" required>
+    </div>
+    <div class="form-group">
+        <input type="text" name="name" class="form-control" placeholder="Name" required>
+    </div>
+    <div class="form-group">
+        <input type="text" name="faculty" class="form-control" placeholder="Faculty">
+    </div>
+    <button type="submit" class="btn btn-primary">Add Student</button>
+</form>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Roll No</th>
+            <th>Name</th>
+            <th>Faculty</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for student in students %}
+        <tr>
+            <td>{{ student.rollno }}</td>
+            <td>{{ student.name }}</td>
+            <td>{{ student.faculty }}</td>
+            <td>
+                <a href="/students/edit/{{ student.id }}" class="btn btn-warning btn-sm">Edit</a>
+                <form method="POST" action="/students/delete/{{ student.id }}" style="display:inline;">
+                    <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

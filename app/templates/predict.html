@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="text-center">Dự đoán học bổng</h2>
+    
+    <!-- Form chọn sinh viên -->
+    <form method="POST" action="">
+        <div class="mb-3">
+            <label for="student_id" class="form-label">Chọn sinh viên:</label>
+            <select class="form-select" id="student_id" name="student_id" required>
+                <option value="" selected disabled>Chọn sinh viên...</option>
+                {% for student in students %}
+                <option value="{{ student.id }}" {% if selected_student and selected_student.id == student.id %}selected{% endif %}>
+                    {{ student.name }}
+                </option>
+                {% endfor %}
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Hiển thị</button>
+    </form>
+
+    <!-- Hiển thị thông tin sinh viên -->
+    {% if selected_student %}
+    <div class="mt-5">
+        <h4>Thông tin sinh viên:</h4>
+        <ul>
+            <li><strong>Tên:</strong> {{ selected_student.name }}</li>
+            <li><strong>Mã số:</strong> {{ selected_student.rollno }}</li>
+        </ul>
+    </div>
+    {% endif %}
+
+    <!-- Hiển thị thông tin dự đoán từ bảng scholarship_prediction -->
+    {% if result %}
+    <div class="mt-5">
+        <h4>Thông tin dự đoán từ bảng scholarship_prediction:</h4>
+        <ul>
+            <li><strong>GPA:</strong> {{ result.GPA }}</li>
+            <li><strong>Điểm rèn luyện:</strong> {{ result.training_score }}</li>
+            <li><strong>Xác suất học bổng loại A:</strong> {{ result.A }}%</li>
+            <li><strong>Xác suất học bổng loại B:</strong> {{ result.B }}%</li>
+            <li><strong>Xác suất không nhận học bổng:</strong> {{ result.No }}%</li>
+            <li><strong>Ngày dự đoán:</strong> {{ result.prediction_date }}</li>
+        </ul>
+    </div>
+    {% else %}
+    <div class="mt-5">
+        <p class="text-danger">Không có thông tin dự đoán học bổng cho sinh viên này.</p>
+    </div>
+    {% endif %}
+    
+</div>
+{% endblock %}

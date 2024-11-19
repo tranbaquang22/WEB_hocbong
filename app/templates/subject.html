@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Manage Subjects</h2>
+<form method="POST" class="mb-4">
+    <div class="form-group">
+        <input type="text" name="name" class="form-control" placeholder="Subject Name" required>
+    </div>
+    <div class="form-group">
+        <input type="text" name="description" class="form-control" placeholder="Description">
+    </div>
+    <div class="form-group">
+        <input type="number" name="credit" class="form-control" placeholder="Credits" required>
+    </div>
+    <div class="form-group">
+        <input type="number" name="semester" class="form-control" placeholder="Semester" required>
+    </div>
+    <button type="submit" class="btn btn-primary">Add Subject</button>
+</form>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Credits</th>
+            <th>Semester</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for subject in subjects %}
+        <tr>
+            <td>{{ subject.name }}</td>
+            <td>{{ subject.description }}</td>
+            <td>{{ subject.credit }}</td>
+            <td>{{ subject.semester }}</td>
+            <td>
+                <a href="/subjects/edit/{{ subject.id }}" class="btn btn-warning btn-sm">Edit</a>
+                <form method="POST" action="/subjects/delete/{{ subject.id }}" style="display:inline;">
+                    <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

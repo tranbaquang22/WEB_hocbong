@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="text-center">Edit Score</h2>
+    <form method="POST" action="{{ url_for('main.edit_score', id=score.id) }}">
+        <div class="mb-3">
+            <label for="tx1" class="form-label">TX1</label>
+            <input type="number" step="0.01" class="form-control" id="tx1" name="tx1" value="{{ score.tx1 or 0 }}" required>
+        </div>
+        <div class="mb-3">
+            <label for="tx2" class="form-label">TX2</label>
+            <input type="number" step="0.01" class="form-control" id="tx2" name="tx2" value="{{ score.tx2 or 0 }}" required>
+        </div>
+        <div class="mb-3">
+            <label for="middle" class="form-label">Middle</label>
+            <input type="number" step="0.01" class="form-control" id="middle" name="middle" value="{{ score.middle or 0 }}" required>
+        </div>
+        <div class="mb-3">
+            <label for="final" class="form-label">Final</label>
+            <input type="number" step="0.01" class="form-control" id="final" name="final" value="{{ score.final or 0 }}" required>
+        </div>
+        <div class="mb-3">
+            <label for="training_point" class="form-label">Training Point</label>
+            <input type="number" step="0.01" class="form-control" id="training_point" name="training_point" value="{{ score.training_point or 0 }}" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Update</button>
+        <a href="{{ url_for('main.manage_scores') }}" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>
+{% endblock %}
